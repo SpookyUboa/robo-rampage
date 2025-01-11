@@ -1,6 +1,6 @@
 extends Camera3D
 
-@export var speed := 20.0
+@export var speed := 40.0
 
 func _physics_process(delta: float) -> void:
 	var weight = delta * speed
