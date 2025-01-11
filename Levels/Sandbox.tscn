@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cet6avcoru2de"]
+[gd_scene load_steps=7 format=3 uid="uid://cet6avcoru2de"]
 
 [ext_resource type="PackedScene" uid="uid://co2qph7d8sdvg" path="res://Player/Player.tscn" id="1_u6bnw"]
 
@@ -15,6 +15,12 @@ sky = SubResource("Sky_k7emh")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bd1lr"]
+albedo_color = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj3ea"]
+albedo_color = Color(1, 0.211765, 0, 1)
+
 [node name="Sandbox" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -28,6 +34,12 @@ environment = SubResource("Environment_sgucs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(64, 1, 64)
+material = SubResource("StandardMaterial3D_bd1lr")
 
 [node name="Player" parent="." instance=ExtResource("1_u6bnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Platform" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.63174)
+use_collision = true
+material = SubResource("StandardMaterial3D_aj3ea")
