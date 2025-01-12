@@ -12,6 +12,7 @@ var provoked := false
 var aggro_range := 12.0
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -37,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	
 	if provoked:
 		if distance <= attack_range: 
-			print("ATTACKED BY SOME GUY")
+			animation_player.play("attack")
 		
 	
 	if direction:
@@ -55,3 +56,6 @@ func look_at_target(direction: Vector3) -> void:
 	var adjusted_direction = direction
 	adjusted_direction.y = 0
 	look_at(global_position + adjusted_direction, Vector3.UP, true)
+
+func attack() -> void:
+	print("ATTACKED BY SOME GUY!!")
