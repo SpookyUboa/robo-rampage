@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b03yy5e5o8g50"]
+[gd_scene load_steps=9 format=3 uid="uid://b03yy5e5o8g50"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_qdl4w"]
 [ext_resource type="Material" uid="uid://i6wblwheuhjw" path="res://Materials/Enemy.tres" id="2_c35y2"]
@@ -8,12 +8,70 @@ material = ExtResource("2_c35y2")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ahkyo"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7ooi"]
-albedo_color = Color(0.905882, 0.282353, 0, 1)
+[sub_resource type="Animation" id="Animation_i4omo"]
+resource_name = "attack"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visor:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.5, 2, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visor:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.737255, 0.737255, 0, 1), Color(0.737255, 0, 0, 1), Color(0.737255, 0.737255, 0, 1)]
+}
 
-[sub_resource type="BoxMesh" id="BoxMesh_f2pki"]
-material = SubResource("StandardMaterial3D_s7ooi")
-size = Vector3(0.5, 0.1, 0.5)
+[sub_resource type="Animation" id="Animation_73qi6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visor:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5, 2, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visor:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.737255, 0.737255, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bcu13"]
+_data = {
+"RESET": SubResource("Animation_73qi6"),
+"attack": SubResource("Animation_i4omo")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5wtl"]
+albedo_color = Color(0.737255, 0.737255, 0, 1)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_qdl4w")
@@ -27,6 +85,12 @@ shape = SubResource("CapsuleShape3D_ahkyo")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572, 0.35)
-mesh = SubResource("BoxMesh_f2pki")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bcu13")
+}
+
+[node name="Visor" type="CSGBox3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0.5, 0.35)
+size = Vector3(0.5, 0.1, 0.5)
+material = SubResource("StandardMaterial3D_u5wtl")
