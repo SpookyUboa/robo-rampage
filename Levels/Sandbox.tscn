@@ -1,6 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cet6avcoru2de"]
 
 [ext_resource type="PackedScene" uid="uid://co2qph7d8sdvg" path="res://Player/Player.tscn" id="1_u6bnw"]
+[ext_resource type="Material" uid="uid://cvg7x82mq8vib" path="res://Materials/SandboxObject.tres" id="2_isjq1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h2b37"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,9 +18,6 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bd1lr"]
 albedo_color = Color(0.329412, 0.329412, 0.329412, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj3ea"]
-albedo_color = Color(1, 0.211765, 0, 1)
 
 [node name="Sandbox" type="Node3D"]
 
@@ -39,7 +37,122 @@ material = SubResource("StandardMaterial3D_bd1lr")
 [node name="Player" parent="." instance=ExtResource("1_u6bnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Platform" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.63174)
+[node name="TestArea" type="Node3D" parent="."]
+
+[node name="Platform" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02378, 0.5, 5.85534)
 use_collision = true
-material = SubResource("StandardMaterial3D_aj3ea")
+size = Vector3(3.02337, 1, 4.71176)
+material = ExtResource("2_isjq1")
+
+[node name="Platform2" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0.5, -5.36826)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Platform3" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -17, 1, -5.368)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Platform4" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, -16, 1.5, -5.368)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Platform5" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, -15, 2, -5.368)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Building" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.081, 2.5, -13.793)
+use_collision = true
+size = Vector3(19.224, 5, 15.068)
+material = ExtResource("2_isjq1")
+
+[node name="Building2" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0855, 2.5, -13.793)
+use_collision = true
+size = Vector3(19.224, 5, 15.068)
+material = ExtResource("2_isjq1")
+
+[node name="Bridge1" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(1, 0, 0, 0, 0.25, 0, 0, 0, 3, 0, 5.125, -11.6618)
+use_collision = true
+size = Vector3(18.8997, 1, 1)
+material = ExtResource("2_isjq1")
+
+[node name="Platform6" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 1, 0, 0.000209483, 0, -1, -6.06733, 2.81407, 2.61931)
+use_collision = true
+size = Vector3(1, 5.77111, 6.20134)
+material = ExtResource("2_isjq1")
+
+[node name="Platform11" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(0.322365, 0, 0.946616, 0, 1, 0, -0.946616, 0, 0.322365, -0.0806227, 0.777941, -3.90261)
+use_collision = true
+size = Vector3(1, 2.19574, 6.20134)
+material = ExtResource("2_isjq1")
+
+[node name="Platform7" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 1, 0, 0.000209483, 0, -1, 16.7689, 0.5, 9.83291)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Platform8" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 2, 0, 0.000209483, 0, -1, 15.7689, 1, 9.83286)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Platform9" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 3, 0, 0.000209483, 0, -1, 14.7689, 1.5, 9.83307)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Platform10" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 4, 0, 0.000209483, 0, -1, 13.7689, 2, 9.83328)
+use_collision = true
+material = ExtResource("2_isjq1")
+
+[node name="Building3" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 1, 0, 0.000209483, 0, -1, 13.8517, 2.5, 18.2583)
+use_collision = true
+size = Vector3(19.224, 5, 15.068)
+material = ExtResource("2_isjq1")
+
+[node name="Building4" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000209483, 0, 1, 0, 0.000209483, 0, -1, -15.3148, 2.5, 18.2644)
+use_collision = true
+size = Vector3(19.224, 5, 15.068)
+material = ExtResource("2_isjq1")
+
+[node name="Bridge2" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-1, 0, -0.000628448, 0, 0.25, 0, 0.000209483, 0, -3, -1.22975, 5.125, 16.1303)
+use_collision = true
+size = Vector3(18.8997, 1, 1)
+material = ExtResource("2_isjq1")
+
+[node name="Bridge3" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(0.0021816, 0, -2.99999, 0, 0.25, 0, 0.999998, 0, 0.00654481, 8.28249, 5.125, 2.81877)
+use_collision = true
+size = Vector3(18.8997, 1, 1)
+material = ExtResource("2_isjq1")
+
+[node name="Bridge4" type="CSGBox3D" parent="TestArea"]
+transform = Transform3D(-0.00239109, 0, 2.99999, 0, 0.25, 0, -0.999997, 0, -0.00717326, -8.51225, 5.125, 1.64965)
+use_collision = true
+size = Vector3(18.8997, 1, 1)
+material = ExtResource("2_isjq1")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 5, 0, 1, 0, -1, 0, -2.18557e-07, 12.3108, 0, -3.01032)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 3, 4, 3, 0)
+material = ExtResource("2_isjq1")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 5, 0, 1, 0, -1, 0, -2.18557e-07, 18.8483, 0, -0.0170674)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 6, 4, 6, 0)
+material = ExtResource("2_isjq1")
