@@ -1,11 +1,15 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
+const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
+
+@export var attack_range := 1.5
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var player
+var provoked := false
+var aggro_range := 12.0
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 
@@ -22,17 +26,32 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = global_position.direction_to(next_position)
+	var distance = global_position.distance_to(player.global_position)
+	
+	
+	if distance <= aggro_range:
+		provoked = true
+	else: 
+		provoked = false
+	
+	if provoked:
+		if distance <= attack_range: 
+			print("ATTACKED BY SOME GUY")
+		
 	
 	if direction:
+		look_at_target(direction)
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
-#	move_and_slide()
+	if provoked:
+		move_and_slide()
+
+func look_at_target(direction: Vector3) -> void:
+	var adjusted_direction = direction
+	adjusted_direction.y = 0
+	look_at(global_position + adjusted_direction, Vector3.UP, true)
