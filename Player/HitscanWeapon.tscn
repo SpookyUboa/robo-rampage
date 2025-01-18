@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://5dc48s6rq8f2"]
+
+[ext_resource type="Script" path="res://Player/HitscanWeapon.gd" id="1_73rfq"]
+
+[node name="HitscanWeapon" type="Node3D"]
+script = ExtResource("1_73rfq")
+
+[node name="CooldownTimer" type="Timer" parent="."]

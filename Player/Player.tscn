@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wdo7e"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_4kyjj"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="3_4tix3"]
-[ext_resource type="Script" path="res://Player/gun.gd" id="4_giy0e"]
-[ext_resource type="PackedScene" uid="uid://uvfjecc4emsk" path="res://Player/gun.glb" id="4_lr614"]
+[ext_resource type="PackedScene" uid="uid://bxij6eug0pt6g" path="res://Player/smg.tscn" id="3_sfqh0"]
+[ext_resource type="Script" path="res://Player/gun_sway.gd" id="4_k7qt7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cat8l"]
 
@@ -26,6 +26,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 top_level = true
 script = ExtResource("2_4kyjj")
 
+[node name="GunPivot" type="Node3D" parent="CameraPivot"]
+top_level = true
+script = ExtResource("4_k7qt7")
+
+[node name="HitscanWeapon" parent="CameraPivot/GunPivot" instance=ExtResource("3_sfqh0")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.345, -0.41, -0.83)
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,11 +43,3 @@ grow_vertical = 2
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
 script = ExtResource("3_4tix3")
-
-[node name="GunPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-
-[node name="Gun" parent="GunPivot" instance=ExtResource("4_lr614")]
-transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, 0.185, -0.2, -0.395)
-top_level = true
-script = ExtResource("4_giy0e")
