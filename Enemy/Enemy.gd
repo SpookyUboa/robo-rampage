@@ -1,15 +1,23 @@
 extends CharacterBody3D
-
+class_name Enemy
 
 const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 
+@export var max_health := 100
 @export var attack_range := 1.5
+@export var attack_damage := 10
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var player
 var provoked := false
 var aggro_range := 12.0
+var health : int = max_health:
+	set(value):
+		health = value
+		if health <= 0:
+			queue_free()
+		provoked = true
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -58,5 +66,4 @@ func look_at_target(direction: Vector3) -> void:
 	look_at(global_position + adjusted_direction, Vector3.UP, true)
 
 func attack() -> void:
-	pass
-#	print("ATTACKED BY SOME GUY!!")
+	player.health -= attack_damage

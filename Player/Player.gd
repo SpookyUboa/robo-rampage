@@ -4,9 +4,15 @@ extends CharacterBody3D
 const SPEED = 5.0
 @export var jump_height : float = 1.0 
 @export var fall_multiplier : float = 1.5
+@export var max_health : int = 100
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion:= Vector2.ZERO 
+var health := max_health:
+	set(value):
+		health = value
+		if health <= 0:
+			get_tree().quit()
 
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var gun_pivot: Node3D = $CameraPivot/GunPivot
