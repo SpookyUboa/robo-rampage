@@ -1,13 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxij6eug0pt6g"]
+[gd_scene load_steps=8 format=3 uid="uid://bxij6eug0pt6g"]
 
 [ext_resource type="PackedScene" uid="uid://5dc48s6rq8f2" path="res://Player/HitscanWeapon.tscn" id="1_vudut"]
 [ext_resource type="PackedScene" uid="uid://uvfjecc4emsk" path="res://Player/gun.glb" id="2_rwubs"]
 
-[node name="HitscanWeapon" node_paths=PackedStringArray("weapon_mesh") instance=ExtResource("1_vudut")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6kcy"]
+albedo_color = Color(1, 0.792157, 0.247059, 1)
+emission_enabled = true
+emission = Color(0.909804, 0.12549, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Curve" id="Curve_wbjyr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.357895), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pju04"]
+curve = SubResource("Curve_wbjyr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1p6fk"]
+direction = Vector3(-1, 0, 0)
+spread = 30.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 32.26
+scale_curve = SubResource("CurveTexture_pju04")
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ioru"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="HitscanWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_vudut")]
 weapon_mesh = NodePath("gun")
+muzzle_flash = NodePath("MuzzleFlash")
 
 [node name="CooldownTimer" parent="." index="0"]
 one_shot = true
 
 [node name="gun" parent="." index="1" instance=ExtResource("2_rwubs")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29357, 0.0561348, 0)
+material_override = SubResource("StandardMaterial3D_q6kcy")
+emitting = false
+lifetime = 0.07
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_1p6fk")
+draw_pass_1 = SubResource("BoxMesh_1ioru")
