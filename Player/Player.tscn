@@ -35,7 +35,7 @@ top_level = true
 script = ExtResource("4_k7qt7")
 
 [node name="HitscanWeapon" parent="CameraPivot/GunPivot" instance=ExtResource("3_sfqh0")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.345, -0.41, -0.83)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
