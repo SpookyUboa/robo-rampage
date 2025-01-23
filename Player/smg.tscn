@@ -38,8 +38,12 @@ one_shot = true
 [node name="gun" parent="." index="1" instance=ExtResource("2_rwubs")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
+[node name="Cube" parent="gun" index="0"]
+layers = 512
+
 [node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.29357, 0.0561348, 0)
+layers = 512
 material_override = SubResource("StandardMaterial3D_q6kcy")
 cast_shadow = 0
 emitting = false
@@ -50,3 +54,5 @@ fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_1p6fk")
 draw_pass_1 = SubResource("BoxMesh_1ioru")
+
+[editable path="gun"]
