@@ -29,20 +29,20 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [node name="HitscanWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_vudut")]
 weapon_mesh = NodePath("gun")
-muzzle_flash = NodePath("MuzzleFlash")
+muzzle_flash = NodePath("gun/MuzzleFlash")
 sparks = ExtResource("2_eend0")
 
 [node name="CooldownTimer" parent="." index="0"]
 one_shot = true
 
 [node name="gun" parent="." index="1" instance=ExtResource("2_rwubs")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -1.31, -0.4, -0.383727)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -1.45215, -0.4, -0.442337)
 
 [node name="Cube" parent="gun" index="0"]
 layers = 512
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.61175, -0.338542, -0.4)
+[node name="MuzzleFlash" type="GPUParticles3D" parent="gun" index="1"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -13.0175, 0.614579, -0.162727)
 layers = 512
 material_override = SubResource("StandardMaterial3D_q6kcy")
 cast_shadow = 0
