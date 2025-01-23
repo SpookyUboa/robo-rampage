@@ -5,6 +5,7 @@ extends Node3D
 @export var weapon_mesh : Node3D
 @export var weapon_damage := 10
 @export var muzzle_flash : GPUParticles3D
+@export var sparks : PackedScene
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var weapon_position : Vector3 = weapon_mesh.position
@@ -26,4 +27,7 @@ func shoot() -> void:
 	print(collider)
 	if collider is Enemy: 
 		collider.health -= weapon_damage
+	var spark = sparks.instantiate()
+	add_child(spark)
+	spark.global_position = ray_cast_3d.get_collision_point()
 	

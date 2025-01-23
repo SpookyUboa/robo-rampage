@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxij6eug0pt6g"]
+[gd_scene load_steps=9 format=3 uid="uid://bxij6eug0pt6g"]
 
 [ext_resource type="PackedScene" uid="uid://5dc48s6rq8f2" path="res://Player/HitscanWeapon.tscn" id="1_vudut"]
+[ext_resource type="PackedScene" uid="uid://c32jgpj3ukauj" path="res://Particles/sparks.tscn" id="2_eend0"]
 [ext_resource type="PackedScene" uid="uid://uvfjecc4emsk" path="res://Player/gun.glb" id="2_rwubs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6kcy"]
@@ -29,6 +30,7 @@ size = Vector3(0.1, 0.1, 0.1)
 [node name="HitscanWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_vudut")]
 weapon_mesh = NodePath("gun")
 muzzle_flash = NodePath("MuzzleFlash")
+sparks = ExtResource("2_eend0")
 
 [node name="CooldownTimer" parent="." index="0"]
 one_shot = true
