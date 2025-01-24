@@ -1,14 +1,77 @@
-[gd_scene load_steps=8 format=3 uid="uid://co2qph7d8sdvg"]
+[gd_scene load_steps=13 format=3 uid="uid://co2qph7d8sdvg"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wdo7e"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_4kyjj"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="3_4tix3"]
 [ext_resource type="PackedScene" uid="uid://bxij6eug0pt6g" path="res://Player/smg.tscn" id="3_sfqh0"]
 [ext_resource type="Script" path="res://Player/gun_sway.gd" id="4_k7qt7"]
+[ext_resource type="Texture2D" uid="uid://dqxdhmj28amlx" path="res://Player/damage.png" id="6_1bgd0"]
+[ext_resource type="PackedScene" uid="uid://o0rrvxn7xhhv" path="res://Player/game_over_menu.tscn" id="7_oafqr"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cat8l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2hxpx"]
+
+[sub_resource type="Animation" id="Animation_0cxhp"]
+resource_name = "Damage"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kivl2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_osemi"]
+_data = {
+"Damage": SubResource("Animation_0cxhp"),
+"RESET": SubResource("Animation_kivl2")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wdo7e")
@@ -66,3 +129,19 @@ render_target_update_mode = 4
 [node name="WeaponCamera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 cull_mask = 512
 fov = 40.1
+
+[node name="DamageTexture" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(576, 324)
+texture = ExtResource("6_1bgd0")
+
+[node name="DamageAnimationPlayer" type="AnimationPlayer" parent="DamageTexture"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_osemi")
+}
+
+[node name="GameOverMenu" parent="." instance=ExtResource("7_oafqr")]
+visible = false

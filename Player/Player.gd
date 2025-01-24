@@ -10,12 +10,18 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion:= Vector2.ZERO 
 var health := max_health:
 	set(value):
+		if value < health:
+			damage_animation_player.stop(false)
+			damage_animation_player.play("Damage")
+
 		health = value
 		if health <= 0:
-			get_tree().quit()
+			game_over_menu.game_over()
 
+@onready var game_over_menu: Control = $GameOverMenu
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var gun_pivot: Node3D = $CameraPivot/GunPivot
+@onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
