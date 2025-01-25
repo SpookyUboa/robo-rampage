@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://o0rrvxn7xhhv"]
+[gd_scene load_steps=8 format=3 uid="uid://o0rrvxn7xhhv"]
 
 [ext_resource type="FontFile" uid="uid://dejvhmobhbhyu" path="res://Assets/Kanit-ExtraBold.ttf" id="1_hpo1j"]
 [ext_resource type="Script" path="res://Player/game_over_menu.gd" id="2_wgqju"]
+[ext_resource type="Shader" uid="uid://dippioy2cby05" path="res://Player/game_over_menu.tres" id="3_1d0qm"]
 
 [sub_resource type="Theme" id="Theme_abb63"]
 default_font = ExtResource("1_hpo1j")
 default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgin1"]
+shader = ExtResource("3_1d0qm")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bf3oa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xfnrh"]
 font_size = 96
@@ -21,6 +27,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_abb63")
 script = ExtResource("2_wgqju")
+
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_fgin1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_bf3oa")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

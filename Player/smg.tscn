@@ -14,7 +14,7 @@ emission_energy_multiplier = 3.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.357895), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_pju04"]
+[sub_resource type="CurveTexture" id="CurveTexture_s75qv"]
 curve = SubResource("Curve_wbjyr")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1p6fk"]
@@ -22,12 +22,12 @@ direction = Vector3(-1, 0, 0)
 spread = 18.39
 gravity = Vector3(0, 0, 0)
 initial_velocity_max = 10.0
-scale_curve = SubResource("CurveTexture_pju04")
+scale_curve = SubResource("CurveTexture_s75qv")
 
 [sub_resource type="BoxMesh" id="BoxMesh_1ioru"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="HitscanWeapon" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_vudut")]
+[node name="AutoRifle" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_vudut")]
 weapon_mesh = NodePath("gun")
 muzzle_flash = NodePath("gun/MuzzleFlash")
 sparks = ExtResource("2_eend0")
