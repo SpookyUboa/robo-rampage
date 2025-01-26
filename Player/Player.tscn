@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="3_4tix3"]
 [ext_resource type="PackedScene" uid="uid://bxij6eug0pt6g" path="res://Player/Rifle.tscn" id="3_sfqh0"]
 [ext_resource type="Script" path="res://Player/WeaponManager.gd" id="4_hxckh"]
-[ext_resource type="PackedScene" uid="uid://b7hyg5bdh5x4h" path="res://Player/SMG.tscn" id="5_d0tmc"]
+[ext_resource type="PackedScene" uid="uid://b7hyg5bdh5x4h" path="res://Player/smg.tscn" id="5_d0tmc"]
 [ext_resource type="Texture2D" uid="uid://dqxdhmj28amlx" path="res://Player/damage.png" id="6_1bgd0"]
 [ext_resource type="PackedScene" uid="uid://o0rrvxn7xhhv" path="res://Player/game_over_menu.tscn" id="7_oafqr"]
 
@@ -100,6 +100,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
@@ -128,18 +129,19 @@ top_level = true
 script = ExtResource("4_hxckh")
 speed = 50.0
 
+[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponManager" instance=ExtResource("5_d0tmc")]
+transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 0, 0, 0)
+
 [node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponManager" instance=ExtResource("3_sfqh0")]
 transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 0, 0, 0)
 visible = false
 
-[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponManager" instance=ExtResource("5_d0tmc")]
-transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 0, 0, 0)
-
 [node name="DamageTexture" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1152.0
+offset_bottom = 648.0
 pivot_offset = Vector2(576, 324)
+mouse_filter = 2
 texture = ExtResource("6_1bgd0")
 
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="DamageTexture"]

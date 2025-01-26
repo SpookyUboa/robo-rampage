@@ -11,7 +11,16 @@ var initial_scale := Vector3()
 func _ready() -> void:
 	initial_offset = get_parent().global_transform.affine_inverse() * global_transform
 	initial_scale = scale
-	equip_weapon(rifle)
+	equip_weapon(smg)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("weapon_1"):
+		equip_weapon(smg)
+	else:
+		if event.is_action_pressed("weapon_2"):
+			equip_weapon(rifle)
+	if event.is_action_pressed("next_weapon") or event.is_action_pressed("previous_weapon"):
+		cycle_weapon()
 
 func equip_weapon(weapon: Node3D) -> void:
 	for child in get_children():
@@ -21,15 +30,25 @@ func equip_weapon(weapon: Node3D) -> void:
 		else:
 			child.visible = false
 			child.set_process(false)
-		
+
+func cycle_weapon() -> void:
+	var index = get_current_index()
+	print("CURRENT INDEX: ", index)
+	if Input.is_action_pressed("next_weapon"):
+		index = wrapi(index + 1, 0, get_child_count())
+		equip_weapon(get_child(index))
+	elif Input.is_action_pressed("previous_weapon"):
+		index = wrapi(index - 1, 0, get_child_count())
+		equip_weapon(get_child(index))
+	print("NEW INDEX: ", index)
 	
+func get_current_index() -> int:
+	for index in get_child_count():
+		if get_child(index).visible == true:
+			return index
+	return 0
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("weapon_1"):
-		equip_weapon(smg)
-	else:
-		if Input.is_action_just_pressed("weapon_2"):
-			equip_weapon(rifle)
 	
 	var parent_transform = get_parent().global_transform
 	global_transform.origin = (parent_transform * initial_offset).origin

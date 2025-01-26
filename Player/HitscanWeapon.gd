@@ -29,7 +29,6 @@ func shoot() -> void:
 	cooldown_timer.start(1.0 / fire_rate)
 	var collider := ray_cast_3d.get_collider()
 	weapon_mesh.position.x += recoil
-	print(collider)
 	if collider is Enemy: 
 		collider.health -= weapon_damage
 	if collider != null:
