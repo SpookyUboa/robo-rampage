@@ -32,7 +32,8 @@ func shoot() -> void:
 	print(collider)
 	if collider is Enemy: 
 		collider.health -= weapon_damage
-	var spark = sparks.instantiate()
-	add_child(spark)
-	spark.global_position = ray_cast_3d.get_collision_point()
+	if collider != null:
+		var spark = sparks.instantiate()
+		add_child(spark)
+		spark.global_position = ray_cast_3d.get_collision_point()
 	
