@@ -149,6 +149,7 @@ visible = false
 ammo_manager = NodePath("../../AmmoManager")
 
 [node name="AmmoManager" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("ammo_label")]
+unique_name_in_owner = true
 script = ExtResource("7_p45xg")
 ammo_label = NodePath("../../../../MarginContainer/Label")
 

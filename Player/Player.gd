@@ -6,6 +6,7 @@ const SPEED = 5.0
 @export var fall_multiplier : float = 1.5
 @export var max_health : int = 100
 
+
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_motion:= Vector2.ZERO 
 var health := max_health:
@@ -18,10 +19,10 @@ var health := max_health:
 		if health <= 0:
 			game_over_menu.game_over()
 
+@onready var ammo_manager: Node = %AmmoManager
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var weapon_manager: Node3D = $SubViewportContainer/SubViewport/WeaponCamera/WeaponManager
-
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 
 func _ready() -> void:
