@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://co2qph7d8sdvg"]
+[gd_scene load_steps=14 format=3 uid="uid://co2qph7d8sdvg"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wdo7e"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_4kyjj"]
 [ext_resource type="Script" path="res://Player/Crosshair.gd" id="3_4tix3"]
 [ext_resource type="PackedScene" uid="uid://bxij6eug0pt6g" path="res://Player/smg.tscn" id="3_sfqh0"]
 [ext_resource type="Script" path="res://Player/gun_sway.gd" id="4_k7qt7"]
+[ext_resource type="PackedScene" uid="uid://b7hyg5bdh5x4h" path="res://Player/smg2.tscn" id="5_d0tmc"]
 [ext_resource type="Texture2D" uid="uid://dqxdhmj28amlx" path="res://Player/damage.png" id="6_1bgd0"]
 [ext_resource type="PackedScene" uid="uid://o0rrvxn7xhhv" path="res://Player/game_over_menu.tscn" id="7_oafqr"]
 
@@ -98,7 +99,11 @@ top_level = true
 script = ExtResource("4_k7qt7")
 speed = 50.0
 
-[node name="HitscanWeapon" parent="CameraPivot/GunPivot" instance=ExtResource("3_sfqh0")]
+[node name="Rifle" parent="CameraPivot/GunPivot" instance=ExtResource("3_sfqh0")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+
+[node name="SMG" parent="CameraPivot/GunPivot" instance=ExtResource("5_d0tmc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]

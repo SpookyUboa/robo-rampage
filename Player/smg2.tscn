@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7hyg5bdh5x4h"]
+[gd_scene load_steps=9 format=3 uid="uid://b7hyg5bdh5x4h"]
 
 [ext_resource type="PackedScene" uid="uid://5dc48s6rq8f2" path="res://Player/HitscanWeapon.tscn" id="1_nw8n5"]
+[ext_resource type="PackedScene" uid="uid://c32jgpj3ukauj" path="res://Particles/sparks.tscn" id="2_42xau"]
 [ext_resource type="PackedScene" uid="uid://7a50m10523lg" path="res://Player/gun2.glb" id="2_vdka5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amf2n"]
@@ -26,9 +27,16 @@ scale_curve = SubResource("CurveTexture_pju04")
 [sub_resource type="BoxMesh" id="BoxMesh_nnlgv"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[node name="HitscanWeapon" instance=ExtResource("1_nw8n5")]
+[node name="SMG" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_nw8n5")]
+weapon_mesh = NodePath("gun2")
+muzzle_flash = NodePath("gun2/MuzzleFlash")
+sparks = ExtResource("2_42xau")
+
+[node name="CooldownTimer" parent="." index="0"]
+one_shot = true
 
 [node name="gun2" parent="." index="2" instance=ExtResource("2_vdka5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92271, -0.411415, -0.48111)
 
 [node name="Cube" parent="gun2" index="0"]
 visible = false
@@ -47,8 +55,8 @@ layers = 512
 layers = 512
 
 [node name="MuzzleFlash" type="GPUParticles3D" parent="gun2" index="5"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.377024, 0.0656663, -0.162727)
-layers = 512
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.377024, 0.0663899, 0.000222027)
+layers = 515
 material_override = SubResource("StandardMaterial3D_amf2n")
 cast_shadow = 0
 emitting = false
