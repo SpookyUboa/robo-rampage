@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://co2qph7d8sdvg"]
+[gd_scene load_steps=17 format=3 uid="uid://co2qph7d8sdvg"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wdo7e"]
 [ext_resource type="Script" path="res://Player/SmoothCamera.gd" id="2_4kyjj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dqxdhmj28amlx" path="res://Player/damage.png" id="6_1bgd0"]
 [ext_resource type="PackedScene" uid="uid://o0rrvxn7xhhv" path="res://Player/game_over_menu.tscn" id="7_oafqr"]
 [ext_resource type="Script" path="res://Player/AmmoManager.gd" id="7_p45xg"]
+[ext_resource type="FontFile" uid="uid://dejvhmobhbhyu" path="res://Assets/Kanit-ExtraBold.ttf" id="9_d3jus"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cat8l"]
 
@@ -75,6 +76,13 @@ _data = {
 "RESET": SubResource("Animation_kivl2")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_aumla"]
+font = ExtResource("9_d3jus")
+font_size = 64
+font_color = Color(0.690196, 0.690196, 0.690196, 1)
+outline_size = 2
+outline_color = Color(0.0862745, 0.0862745, 0.0862745, 1)
+
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wdo7e")
 
@@ -140,8 +148,9 @@ transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 
 visible = false
 ammo_manager = NodePath("../../AmmoManager")
 
-[node name="AmmoManager" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera"]
+[node name="AmmoManager" type="Node" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("ammo_label")]
 script = ExtResource("7_p45xg")
+ammo_label = NodePath("../../../../MarginContainer/Label")
 
 [node name="DamageTexture" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -156,6 +165,25 @@ autoplay = "RESET"
 libraries = {
 "": SubResource("AnimationLibrary_osemi")
 }
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "999"
+label_settings = SubResource("LabelSettings_aumla")
 
 [node name="GameOverMenu" parent="." instance=ExtResource("7_oafqr")]
 visible = false

@@ -27,20 +27,19 @@ func equip_weapon(weapon: Node3D) -> void:
 		if child == weapon:
 			child.visible = true
 			child.set_process(true)
+			child.ammo_manager.update_ammo_label(child.ammo_type)
 		else:
 			child.visible = false
 			child.set_process(false)
 
 func cycle_weapon() -> void:
 	var index = get_current_index()
-	print("CURRENT INDEX: ", index)
 	if Input.is_action_pressed("next_weapon"):
 		index = wrapi(index + 1, 0, get_child_count())
 		equip_weapon(get_child(index))
 	elif Input.is_action_pressed("previous_weapon"):
 		index = wrapi(index - 1, 0, get_child_count())
 		equip_weapon(get_child(index))
-	print("NEW INDEX: ", index)
 	
 func get_current_index() -> int:
 	for index in get_child_count():
