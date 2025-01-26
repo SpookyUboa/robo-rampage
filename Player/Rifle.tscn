@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxij6eug0pt6g"]
+
+[ext_resource type="PackedScene" uid="uid://5dc48s6rq8f2" path="res://Player/HitscanWeapon.tscn" id="1_vudut"]
+[ext_resource type="PackedScene" uid="uid://c32jgpj3ukauj" path="res://Particles/sparks.tscn" id="2_eend0"]
+[ext_resource type="PackedScene" uid="uid://bdhvsrssfbca1" path="res://Player/rifle.glb" id="3_qsiek"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6kcy"]
+albedo_color = Color(1, 0.792157, 0.247059, 1)
+emission_enabled = true
+emission = Color(0.909804, 0.12549, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Curve" id="Curve_wbjyr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.357895), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y6780"]
+curve = SubResource("Curve_wbjyr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1p6fk"]
+direction = Vector3(-1, 0, 0)
+spread = 18.39
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 20.0
+scale_curve = SubResource("CurveTexture_y6780")
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ioru"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="AutoRifle" node_paths=PackedStringArray("weapon_mesh", "muzzle_flash") instance=ExtResource("1_vudut")]
+fire_rate = 2.0
+recoil = 0.3
+weapon_mesh = NodePath("rifle")
+weapon_damage = 40
+muzzle_flash = NodePath("rifle/MuzzleFlash")
+sparks = ExtResource("2_eend0")
+
+[node name="CooldownTimer" parent="." index="0"]
+one_shot = true
+
+[node name="rifle" parent="." index="2" instance=ExtResource("3_qsiek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92271, -0.411415, -0.48111)
+
+[node name="Rifle" parent="rifle" index="0"]
+layers = 512
+
+[node name="Magazine" parent="rifle" index="1"]
+layers = 512
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="rifle" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28571, 0.0780975, 0.000377148)
+layers = 512
+material_override = SubResource("StandardMaterial3D_q6kcy")
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.05
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+visibility_aabb = AABB(-2004, -4, -4, 8, 8, 8)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_1p6fk")
+draw_pass_1 = SubResource("BoxMesh_1ioru")
+
+[editable path="rifle"]

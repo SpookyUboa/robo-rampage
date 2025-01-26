@@ -20,7 +20,8 @@ var health := max_health:
 
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var camera_pivot: Node3D = $CameraPivot
-@onready var gun_pivot: Node3D = $CameraPivot/GunPivot
+@onready var weapon_manager: Node3D = $SubViewportContainer/SubViewport/WeaponCamera/WeaponManager
+
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
 
 func _ready() -> void:
@@ -62,11 +63,11 @@ func _input(event: InputEvent) -> void:
 func handle_camera_rotation() -> void: 
 	rotate_y(mouse_motion.x)
 	camera_pivot.rotate_x(mouse_motion.y)
-	gun_pivot.rotate_x(mouse_motion.y)
+	weapon_manager.rotate_x(mouse_motion.y)
 	camera_pivot.rotation_degrees.x = clampf(
 		camera_pivot.rotation_degrees.x, -90.0, 90.0
 	) 
-	gun_pivot.rotation_degrees.x = clampf(
-		gun_pivot.rotation_degrees.x, -90.0, 90.0
+	weapon_manager.rotation_degrees.x = clampf(
+		weapon_manager.rotation_degrees.x, -90.0, 90.0
 	) 
 	mouse_motion = Vector2.ZERO
