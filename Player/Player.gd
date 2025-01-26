@@ -64,11 +64,7 @@ func _input(event: InputEvent) -> void:
 func handle_camera_rotation() -> void: 
 	rotate_y(mouse_motion.x)
 	camera_pivot.rotate_x(mouse_motion.y)
-	weapon_manager.rotate_x(mouse_motion.y)
 	camera_pivot.rotation_degrees.x = clampf(
 		camera_pivot.rotation_degrees.x, -90.0, 90.0
-	) 
-	weapon_manager.rotation_degrees.x = clampf(
-		weapon_manager.rotation_degrees.x, -90.0, 90.0
 	) 
 	mouse_motion = Vector2.ZERO

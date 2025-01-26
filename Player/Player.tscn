@@ -134,9 +134,7 @@ cull_mask = 512
 fov = 40.1
 
 [node name="WeaponManager" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera"]
-top_level = true
 script = ExtResource("4_hxckh")
-speed = 50.0
 
 [node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponManager" node_paths=PackedStringArray("ammo_manager") instance=ExtResource("5_d0tmc")]
 transform = Transform3D(-6.55671e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.55671e-08, 0, 0, 0)
