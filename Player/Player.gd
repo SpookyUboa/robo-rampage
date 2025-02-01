@@ -6,6 +6,7 @@ const SPEED = 5.0
 @export var fall_multiplier : float = 1.5
 @export var max_health : int = 100
 @export var zoom_fov := 0.7
+@export var zoom_speed := 20
 
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -44,11 +45,11 @@ func _physics_process(delta: float) -> void:
 			velocity.y -= gravity * delta * fall_multiplier
 	
 	if Input.is_action_pressed("aim"):
-		smooth_camera.fov = smooth_camera_fov * zoom_fov
-		weapon_camera.fov = weapon_camera_fov * zoom_fov
+		smooth_camera.fov = lerp(smooth_camera.fov, smooth_camera_fov * zoom_fov, zoom_speed * delta)
+		weapon_camera.fov = lerp(weapon_camera.fov, weapon_camera_fov * zoom_fov, zoom_speed * delta)
 	else: 
-		smooth_camera.fov = smooth_camera_fov
-		weapon_camera.fov = weapon_camera_fov
+		smooth_camera.fov = lerp(smooth_camera.fov, smooth_camera_fov, zoom_speed * delta)
+		weapon_camera.fov = lerp(weapon_camera.fov, weapon_camera_fov, zoom_speed * delta)
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = sqrt(jump_height * 2 * gravity)
