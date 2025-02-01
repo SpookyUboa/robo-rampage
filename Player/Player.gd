@@ -1,10 +1,11 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
+
 @export var jump_height : float = 1.0 
 @export var fall_multiplier : float = 1.5
 @export var max_health : int = 100
+@export var zoom_fov := 0.7
 
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -19,11 +20,16 @@ var health := max_health:
 		if health <= 0:
 			game_over_menu.game_over()
 
+@onready var smooth_camera: Camera3D = %SmoothCamera
 @onready var ammo_manager: Node = %AmmoManager
 @onready var game_over_menu: Control = $GameOverMenu
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var weapon_manager: Node3D = $SubViewportContainer/SubViewport/WeaponCamera/WeaponManager
 @onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
+@onready var weapon_camera: Camera3D = %WeaponCamera
+
+@onready var smooth_camera_fov := smooth_camera.fov 
+@onready var weapon_camera_fov := weapon_camera.fov 
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -36,6 +42,13 @@ func _physics_process(delta: float) -> void:
 			velocity.y -= gravity * delta
 		else:
 			velocity.y -= gravity * delta * fall_multiplier
+	
+	if Input.is_action_pressed("aim"):
+		smooth_camera.fov = smooth_camera_fov * zoom_fov
+		weapon_camera.fov = weapon_camera_fov * zoom_fov
+	else: 
+		smooth_camera.fov = smooth_camera_fov
+		weapon_camera.fov = weapon_camera_fov
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = sqrt(jump_height * 2 * gravity)
@@ -54,6 +67,8 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_motion = -event.relative * 0.005
+		if Input.is_action_pressed("aim"):
+			mouse_motion *= zoom_fov
 	else:
 		if event.is_action_pressed("ui_cancel"):
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
