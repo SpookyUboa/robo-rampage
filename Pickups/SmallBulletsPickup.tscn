@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://wj80m105khdk"]
+
+[ext_resource type="PackedScene" uid="uid://ddr3rd7ykvm2e" path="res://Pickups/AmmoPickup.tscn" id="1_bli4r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f22we"]
+albedo_color = Color(1, 0.654902, 0.360784, 1)
+
+[node name="Pickup" instance=ExtResource("1_bli4r")]
+ammo_type = 1
+amount = 60
+
+[node name="MeshInstance3D" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_f22we")

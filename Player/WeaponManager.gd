@@ -1,16 +1,20 @@
 extends Node3D
 
-var initial_offset := Transform3D()
-var initial_scale := Vector3()
-
 @onready var rifle: Node3D = $Rifle
 @onready var smg: Node3D = $SMG
 
 
 func _ready() -> void:
-	initial_offset = get_parent().global_transform.affine_inverse() * global_transform
-	initial_scale = scale
 	equip_weapon(smg)
+
+func _process(delta: float) -> void:
+	global_position = get_parent().global_position
+
+func _physics_process(delta: float) -> void:
+	global_transform = global_transform.interpolate_with(
+		get_parent().global_transform, 50 * delta
+	)
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon_1"):
