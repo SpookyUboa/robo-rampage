@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ddr3rd7ykvm2e"]
 
-[ext_resource type="Script" path="res://Pickups/AmmoPickup.gd" id="1_oca64"]
+[ext_resource type="Script" uid="uid://c8vgsh8grr5ka" path="res://Pickups/AmmoPickup.gd" id="1_oca64"]
 [ext_resource type="Shader" uid="uid://de38ti3apihbl" path="res://Pickups/FresnelAura.tres" id="2_lk312"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_p3yj0"]
@@ -31,8 +31,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fknrd"]
 _data = {
-"RESET": SubResource("Animation_ftubu"),
-"Rotation": SubResource("Animation_kq4ht")
+&"RESET": SubResource("Animation_ftubu"),
+&"Rotation": SubResource("Animation_kq4ht")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ym01y"]

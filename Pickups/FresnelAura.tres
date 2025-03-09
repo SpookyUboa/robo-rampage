@@ -15,7 +15,7 @@ render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_s
 
 void fragment() {
 // ColorConstant:3
-	vec4 n_out3p0 = vec4(0.862745, 0.137255, 0.058824, 1.000000);
+	vec4 n_out3p0 = vec4(0.862745, 0.137255, 0.058823, 1.000000);
 
 
 // Fresnel:2
@@ -31,7 +31,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-250.558, 85.3612)
 nodes/fragment/2/node = SubResource("VisualShaderNodeFresnel_ao28b")
 nodes/fragment/2/position = Vector2(41.4429, 369.91)
 nodes/fragment/3/node = SubResource("VisualShaderNodeColorConstant_tm1e3")

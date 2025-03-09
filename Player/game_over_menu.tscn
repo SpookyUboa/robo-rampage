@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://o0rrvxn7xhhv"]
 
 [ext_resource type="FontFile" uid="uid://dejvhmobhbhyu" path="res://Assets/Kanit-ExtraBold.ttf" id="1_hpo1j"]
-[ext_resource type="Script" path="res://Player/game_over_menu.gd" id="2_wgqju"]
+[ext_resource type="Script" uid="uid://cpy3w3gatvhuh" path="res://Player/game_over_menu.gd" id="2_wgqju"]
 [ext_resource type="Shader" uid="uid://dippioy2cby05" path="res://Player/game_over_menu.tres" id="3_1d0qm"]
 
 [sub_resource type="Theme" id="Theme_abb63"]
