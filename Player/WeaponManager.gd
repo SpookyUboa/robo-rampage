@@ -49,4 +49,3 @@ func get_current_index() -> int:
 		if get_child(index).visible == true:
 			return index
 	return 0
-

@@ -1,97 +1,45 @@
-[gd_scene load_steps=9 format=3 uid="uid://b03yy5e5o8g50"]
+[gd_scene load_steps=13 format=3 uid="uid://b03yy5e5o8g50"]
 
 [ext_resource type="Script" uid="uid://da4bh6mvdgtls" path="res://Enemy/Enemy.gd" id="1_qdl4w"]
-[ext_resource type="Material" uid="uid://i6wblwheuhjw" path="res://Materials/Enemy.tres" id="2_c35y2"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_wbkik"]
-material = ExtResource("2_c35y2")
+[ext_resource type="PackedScene" uid="uid://c4c3fplodh638" path="res://Enemy/robot.glb" id="2_epr5s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ahkyo"]
 
-[sub_resource type="Animation" id="Animation_73qi6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Visor:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.5, 2, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Visor:material:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.737255, 0.737255, 0, 1)]
-}
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_epr5s"]
+animation = &"Attack"
 
-[sub_resource type="Animation" id="Animation_i4omo"]
-resource_name = "attack"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Visor:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1.5, 2, 1), Vector3(1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Visor:material:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0.737255, 0.737255, 0, 1), Color(0.737255, 0, 0, 1), Color(0.737255, 0.737255, 0, 1)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"attack"
-}]
-}
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vonkd"]
+animation = &"Idle"
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bcu13"]
-_data = {
-&"RESET": SubResource("Animation_73qi6"),
-&"attack": SubResource("Animation_i4omo")
-}
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vso2s"]
+animation = &"Walk"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u5wtl"]
-albedo_color = Color(0.737255, 0.737255, 0, 1)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fkela"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d2k2y"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jd4ap"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1ypri"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uxjip"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_kvarv"]
+states/Attack/node = SubResource("AnimationNodeAnimation_epr5s")
+states/Attack/position = Vector2(507, 145)
+states/Idle/node = SubResource("AnimationNodeAnimation_vonkd")
+states/Idle/position = Vector2(364, 100)
+states/Walk/node = SubResource("AnimationNodeAnimation_vso2s")
+states/Walk/position = Vector2(512, 21)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_fkela"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_d2k2y"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_jd4ap"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_1ypri"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_uxjip")]
+graph_offset = Vector2(-53, -73)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_qdl4w")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_wbkik")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ahkyo")
@@ -99,12 +47,35 @@ shape = SubResource("CapsuleShape3D_ahkyo")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_bcu13")
-}
+[node name="robot" parent="." instance=ExtResource("2_epr5s")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -1, 0)
 
-[node name="Visor" type="CSGBox3D" parent="."]
-transform = Transform3D(1.5, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0.5, 0.35)
-size = Vector3(0.5, 0.1, 0.5)
-material = SubResource("StandardMaterial3D_u5wtl")
+[node name="Skeleton3D" parent="robot/Armature" index="0"]
+bones/0/position = Vector3(0, -0.294128, 0)
+bones/0/rotation = Quaternion(-0.0064993, -0.00163943, 0.0158698, 0.999852)
+bones/2/rotation = Quaternion(-0.0547186, 0.0930289, -0.706142, 0.699797)
+bones/3/rotation = Quaternion(-0.00256724, 0.00487183, -0.00144315, 0.999984)
+bones/4/rotation = Quaternion(0.967161, -0.0469456, 0.0479029, -0.245154)
+bones/5/rotation = Quaternion(0.114788, 0.000143118, -0.00942277, 0.993345)
+bones/6/rotation = Quaternion(-0.090561, 0.00173408, 0.000254019, 0.995889)
+bones/8/rotation = Quaternion(-0.0564812, -0.0944439, 0.691931, 0.713528)
+bones/9/rotation = Quaternion(-0.0025598, -0.00489046, 0.00059978, 0.999985)
+bones/10/rotation = Quaternion(0.910518, 0.00740683, -0.00784816, 0.413328)
+bones/11/rotation = Quaternion(0.515885, -0.000252805, 0.0641717, 0.854251)
+bones/12/position = Vector3(0.987207, -1.41759, -0.383445)
+bones/12/rotation = Quaternion(-0.0329462, 0, 0.999457, 0)
+bones/13/position = Vector3(0.420643, -1.63632, -0.107036)
+bones/14/position = Vector3(0.42109, -2.38839, -0.815609)
+bones/15/position = Vector3(-0.987207, -1.41759, -0.383445)
+bones/16/position = Vector3(-0.420643, -1.63632, 1.03761)
+bones/17/position = Vector3(-0.42109, -2.38839, 0.49769)
+
+[node name="AnimationPlayer" parent="robot" index="2"]
+autoplay = "Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../robot")
+tree_root = SubResource("AnimationNodeStateMachine_kvarv")
+anim_player = NodePath("../robot/AnimationPlayer")
+
+[editable path="robot"]
